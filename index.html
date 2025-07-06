@@ -86,7 +86,7 @@
             white-space: nowrap; /* Keeps the text on a single line */
             margin: 0 auto; /* Centers the text */
             letter-spacing: .15em; /* Adjust as needed */
-            animation: typing 3.5s steps(40, end),
+            animation: typing 8s steps(40, end),
                        blink-caret .75s step-end infinite;
             font-size: 1.2em;
             padding-top: 10px;
@@ -96,8 +96,9 @@
 
         /* Typewriter effect */
         @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
+            0% { width: 0 }
+            70% { width: 100% }
+            100% { width: 100% }
         }
 
         /* Blinking caret */
@@ -536,7 +537,7 @@
     <section id="landing-page">
         <div class="heart-container"></div>
         <h1 class="wiggle">Hi <span class="her-name">Jeni</span>! 💖</h1>
-        <p class="typewriter">This website is just for you..
+        <p class="typewriter">This website is for you!<strong>Jeni</strong>
             
         </p>
     </section>
@@ -632,23 +633,7 @@
         // --- 1. Landing Page Animations ---
 
         // Typewriter Effect
-        const typewriterText = document.querySelector('.typewriter');
-        const originalText = typewriterText.textContent;
-        typewriterText.textContent = ''; // Clear text initially
-
-        let i = 0;
-        function typeWriter() {
-            if (i < originalText.length) {
-                typewriterText.textContent += originalText.charAt(i);
-                i++;
-                setTimeout(typeWriter, 70); // Typing speed
-            } else {
-                // Remove blinking caret after typing
-                typewriterText.style.borderRight = 'none';
-            }
-        }
-        window.onload = typeWriter; // Start typing on page load
-
+        
         // Floating Hearts
         const heartContainer = document.querySelector('.heart-container');
         const heartEmojis = ['💖', '✨', '🌸', '🎀', '💫'];
@@ -656,8 +641,12 @@
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
-            heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
-            heart.style.left = `${Math.random() * 100}%`;
+       g Page Animations ---
+
+        // Typewriter Effect
+        
+        // Floating Hearts
+        const heartContainer = dMath.random() * 100}%`;
             heart.style.animationDuration = `${Math.random() * 5 + 3}s`; // 5-10 seconds
             heart.style.animationDelay = `${Math.random() * 0.5}s`; // Stagger start
             heart.style.fontSize = `${Math.random() * 1 + 1.2}em`; // 1.2em to 2.2em
