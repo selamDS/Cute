@@ -641,12 +641,8 @@
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart');
-       g Page Animations ---
-
-        // Typewriter Effect
-        
-        // Floating Hearts
-        const heartContainer = dMath.random() * 100}%`;
+            heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+            heart.style.left = `${Math.random() * 100}%`;
             heart.style.animationDuration = `${Math.random() * 5 + 3}s`; // 5-10 seconds
             heart.style.animationDelay = `${Math.random() * 0.5}s`; // Stagger start
             heart.style.fontSize = `${Math.random() * 1 + 1.2}em`; // 1.2em to 2.2em
