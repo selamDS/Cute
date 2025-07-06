@@ -33,7 +33,7 @@
         }
 
         section {
-            width: 90%;
+            whtidth: 90%;
             max-width: 800px;
             background-color: rgba(255, 255, 255, 0.8);
             border-radius: 20px;
@@ -204,7 +204,7 @@
 
         .chests-grid {
             display: grid;
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 20px;
             justify-content: center;
             max-width: 600px;
@@ -280,6 +280,20 @@
             align-items: center;
             justify-content: center;
         }
+          .modal2 {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 100; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            /*overflow: auto;*/ /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+           /* display: flex;*/
+            align-items: center;
+            justify-content: center;
+        }
 
         .modal-content {
             background-color: #fefefe;
@@ -294,6 +308,20 @@
             opacity: 0;
             animation: modalPopIn 0.3s ease-out forwards;
         }
+      .secretModal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+            transform: scale(0.8); /* Start smaller for pop-in */
+            opacity: 0;
+            animation: modalPopIn 0.3s ease-out forwards;
+         
+        }
 
         @keyframes modalPopIn {
             to {
@@ -302,7 +330,7 @@
             }
         }
 
-        .close-button {
+        .close-button, .secretClose-button{
             color: #aaa;
             position: absolute;
             top: 15px;
@@ -314,6 +342,11 @@
 
         .close-button:hover,
         .close-button:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+         .secretClose-button:hover, .secretClose-button:focus{
             color: #000;
             text-decoration: none;
             cursor: pointer;
@@ -502,25 +535,27 @@
     <!-- Landing Page -->
     <section id="landing-page">
         <div class="heart-container"></div>
-        <h1 class="wiggle">Hi <span class="her-name">[Her Name]</span>! 💖</h1>
-        <p class="typewriter">This website is just for you...</p>
+        <h1 class="wiggle">Hi <span class="her-name">Jeni</span>! 💖</h1>
+        <p class="typewriter">This website is just for you..
+            
+        </p>
     </section>
 
     <!-- About You Section -->
     <section id="about-you">
         <h2>✨ Why You're Amazing ✨</h2>
         <ul>
-            <li>You have the best laugh</li>
-            <li>You’re secretly a [inside joke] expert</li>
+            <li>You sooo cute and hot</li>
+            <li>You have the most charming voice</li>
             <li>You make my day brighter</li>
-            <li>You're incredibly kind</li>
-            <li>You inspire me every day</li>
+            <li>You're incredibly loving and kind</li>
+            <li>You are special</li>
         </ul>
     </section>
 
     <!-- Interactive "Reasons I Like You" Game -->
     <section id="reasons-game">
-        <h2>🎲 Reasons I Like You Game 🎲</h2>
+        <h2>🎲 Reasons I Like You: Game 🎲</h2>
         <p>Click a chest to reveal a sweet message!</p>
         <div class="chests-grid">
             <div class="chest">🔒</div>
@@ -543,12 +578,27 @@
             <div class="modal-content">
                 <span class="close-button">&times;</span>
                 <div class="letter">
-                    <p>Dear <span class="her-name">[Her Name]</span>,</p>
-                    <p>I made this because you’re...</p>
-                    <p>*checks notes* ...the cutest.</p>
+                    <p>Dear <span class="her-name">janny</span>,</p>
+                    <p>I made this because you’re special to me</p>
+                    <p>❤ ...the cutest.</p>
                     <p>Every moment with you is a treasure. You bring so much joy and sparkle into my life. Thank you for being you!</p>
-                    <p>With all my love,</p>
-                    <p>[Your Name]</p>
+                    <p>With all my respect,</p>
+                    <p>Poiuy</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- The Modal Structure -->
+        <div id="secretModal" class="modal2">
+            <div class="secretModal-content">
+                <span class="secretClose-button">&times;</span>
+                <div class="letter">
+                    <p>Dear <span class="her-name">janny</span>,</p>
+                    <p>I like your face(and mouth)</p>
+                    <p>I love your nipple. the tip is pink and gets me hard everytime I see it</p>
+                    <p>your boobs, ahh just the perfect!</p>
+                    <p>and your moan,I just wish i hear it in person</p>
+                    <p></p>
                 </div>
             </div>
         </div>
@@ -558,7 +608,7 @@
     <!-- "Play Our Song" Button -->
     <section id="song-section">
         <h2>🎶 Our Song 🎶</h2>
-        <button id="song-btn">📻 Play Our Song</button>
+        <button id="song-btn">📻 Play my favorite Song</button>
         <!-- Replace with your actual YouTube-to-MP3 link -->
         <audio id="song" src="https://www.soundjay.com/button/sounds/button-3.mp3" preload="auto"></audio>
     </section>
@@ -566,7 +616,7 @@
     <!-- Footer -->
     <footer>
         <div class="rainbow-divider"></div>
-        <p>Made for you ❤️</p>
+        <p>Made for you. Only for you❤️</p>
     </footer>
 
     <script>
@@ -624,45 +674,57 @@
         const chests = document.querySelectorAll(".chest");
         const messages = [
             "You’re my favorite texter! 📱",
-            "Your smile brightens my day! 😊",
+            "Your voice brightens my day! 😊",
             "You're incredibly thoughtful! 💌",
-            "You're super smart! 📚",
-            "You make the best [favorite food/drink]! 🍦", // Customize this!
+            "You're super smart!  📚 and you know it",
+            "You make the best moan!🤤", // Customize this!
             "You have amazing taste in music! 🎶",
-            "You're always there for me! 🤗",
+            "You're different from everyone I know 🤗",
             "You're simply the best! ⭐"
         ];
 
-        chests.forEach(chest => {
-            chest.addEventListener("click", () => {
-                // Ensure a message is revealed only once per chest click
-                if (chest.textContent === '🔒') {
-                    const randomIndex = Math.floor(Math.random() * messages.length);
-                    chest.textContent = messages[randomIndex];
+        // Shuffle function (Fisher-Yates algorithm)
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
 
-                    // Trigger confetti burst
-                    confetti({
-                        particleCount: 100,
-                        spread: 70,
-                        origin: {
-                            x: (chest.getBoundingClientRect().left + chest.getBoundingClientRect().right) / 2 / window.innerWidth,
-                            y: (chest.getBoundingClientRect().top + chest.getBoundingClientRect().bottom) / 2 / window.innerHeight
-                        },
-                        colors: ['#FFD1DC', '#E6E6FA', '#FFFACD', '#FFC0CB', '#ADD8E6']
-                    });
-                }
+let shuffledMessages = shuffleArray([...messages]); // Copy and shuffle
+let messageIndex = 0;
+
+chests.forEach(chest => {
+    chest.addEventListener("click", () => {
+        if (chest.textContent === '🔒' && messageIndex < shuffledMessages.length) {
+            chest.textContent = shuffledMessages[messageIndex++];
+            
+            // Trigger confetti burst
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: {
+                    x: (chest.getBoundingClientRect().left + chest.getBoundingClientRect().right) / 2 / window.innerWidth,
+                    y: (chest.getBoundingClientRect().top + chest.getBoundingClientRect().bottom) / 2 / window.innerHeight
+                },
+                colors: ['#FFD1DC', '#E6E6FA', '#FFFACD', '#FFC0CB', '#ADD8E6']
             });
-        });
+        }
+    });
+});
 
         // --- 4. Love Letter (Hidden Easter Egg) ---
         const easterEggTrigger = document.querySelector('.easter-egg-trigger');
         const loveLetterModal = document.getElementById('loveLetterModal');
+        const secretModal = document.getElementById('secretModal');
         const closeButton = document.querySelector('.close-button');
+        const secretCloseButton = document.querySelector('.secretClose-button');
         const crumpleSound = document.getElementById('crumpleSound');
         const letterContent = document.querySelector('.letter');
 
         easterEggTrigger.addEventListener('click', () => {
-            loveLetterModal.style.display = 'flex'; // Show the modal
+            secretModal.style.display = 'flex'; // Show the modal
             crumpleSound.play(); // Play crumple sound
             // Reset and re-apply animation for replayability
             letterContent.style.animation = 'none';
@@ -672,13 +734,33 @@
         });
 
         closeButton.addEventListener('click', () => {
-            loveLetterModal.style.display = 'none'; // Hide the modal
+            loveLetterModal.style.display = 'none';
+            
+            
+                        // Hide the modal
         });
 
         // Close modal if clicked outside of content
         window.addEventListener('click', (event) => {
             if (event.target == loveLetterModal) {
                 loveLetterModal.style.display = 'none';
+                
+            }
+        });
+    // -------Sceret message closing ---
+       
+         secretCloseButton.addEventListener('click', () => {
+            secretModal.style.display = 'none';
+            
+            
+                        // Hide the modal
+        });
+
+        // Close modal if clicked outside of content
+        window.addEventListener('click', (event) => {
+            if (event.target == secretModal) {
+                secretModal.style.display = 'none';
+                
             }
         });
 
@@ -693,13 +775,13 @@
                 createMusicNotes(); // Start floating notes
             } else {
                 songAudio.pause();
-                songBtn.textContent = '📻 Play Our Song';
+                songBtn.textContent = '📻 Play my fav Song';
                 stopMusicNotes(); // Stop floating notes
             }
         });
 
         songAudio.addEventListener('ended', () => {
-            songBtn.textContent = '📻 Play Our Song';
+            songBtn.textContent = '📻 Play fav Song';
             stopMusicNotes();
         });
 
@@ -733,3 +815,4 @@
     </script>
 </body>
 </html>
+     if (i < ori
