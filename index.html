@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Just For You 💖</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <style>
+        /* General Styles */
+        :root {
+            --pink-light: #FFD1DC;
+            --lavender-light: #E6E6FA;
+            --yellow-pastel: #FFFACD;
+            --font-inter: 'Inter', sans-serif;
+            --font-caveat: 'Caveat', cursive;
+        }
+
+        body {
+            margin: 0;
+            font-family: var(--font-inter);
+            color: #333;
+            background: linear-gradient(135deg, var(--pink-light), var(--lavender-light));
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-x: hidden; /* Prevent horizontal scroll due to animations */
+        }
+
+        section {
+            width: 90%;
+            max-width: 800px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        h1, h2 {
+            font-family: var(--font-caveat);
+            color: #555;
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        /* Landing Page */
+        #landing-page {
+            background: rgba(255, 255, 255, 0.9);
+            position: relative;
+            overflow: hidden; /* For floating hearts */
+        }
+
+        #landing-page h1 {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 15px 30px;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: inline-block; /* To apply shadow and rounded corners */
+        }
+
+        .wiggle {
+            animation: wiggle 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes wiggle {
+            0% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+            100% { transform: rotate(-2deg); }
+        }
+
+        .typewriter {
+            overflow: hidden; /* Ensures the text is hidden until typed */
+            white-space: nowrap; /* Keeps the text on a single line */
+            margin: 0 auto; /* Centers the text */
+            letter-spacing: .15em; /* Adjust as needed */
+            animation: typing 3.5s steps(40, end),
+                       blink-caret .75s step-end infinite;
+            font-size: 1.2em;
+            padding-top: 10px;
+            border-right: .15em solid orange; /* The caret */
+            width: 0; /* Initial width for typing effect */
+        }
+
+        /* Typewriter effect */
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        /* Blinking caret */
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: orange; }
+        }
+
+        /* Floating Hearts */
+        .heart-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Allow clicks to pass through */
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 1.5em; /* Adjust size */
+            animation: floatUp 10s ease-in-out infinite;
+            opacity: 0;
+            transform: translateY(0);
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0);
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh); /* Float beyond viewport */
+                opacity: 0;
+            }
+        }
+
+        /* About You Section */
+        #about-you {
+            background-color: var(--yellow-pastel);
+            border: 3px dashed #F08080; /* Light coral dashed border */
+            padding: 30px;
+        }
+
+        #about-you h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        #about-you ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        #about-you li {
+            font-family: var(--font-caveat);
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            opacity: 0; /* Start hidden for pop-in effect */
+            transform: translateY(20px); /* Start slightly below */
+            animation: fadeInPop 0.6s ease-out forwards;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        #about-you li:nth-child(1) { animation-delay: 0.2s; }
+        #about-you li:nth-child(2) { animation-delay: 0.4s; }
+        #about-you li:nth-child(3) { animation-delay: 0.6s; }
+        /* Add more if you add more list items */
+
+        @keyframes fadeInPop {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        #about-you li:hover {
+            transform: scale(1.05);
+        }
+
+        /* Reasons I Like You Game */
+        #reasons-game {
+            background: linear-gradient(45deg, #ADD8E6, #90EE90); /* Light blue to light green */
+        }
+
+        #reasons-game h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+
+        .chests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 20px;
+            justify-content: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .chest {
+            font-size: 4em; /* Emoji size */
+            cursor: pointer;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.1s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 120px; /* Ensure consistent size */
+        }
+
+        .chest:hover {
+            animation: shake 0.3s infinite;
+        }
+
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+
+        /* Love Letter (Easter Egg) */
+        #easter-egg-section {
+            background-color: #FFC0CB; /* Light pink */
+            position: relative;
+            min-height: 150px; /* Ensure space for the trigger */
+        }
+
+        .easter-egg-trigger {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2em;
+            cursor: pointer;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+            z-index: 10; /* Ensure it's above other content */
+        }
+
+        .easter-egg-trigger:hover {
+            transform: scale(1.1);
+        }
+
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 100; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+            transform: scale(0.8); /* Start smaller for pop-in */
+            opacity: 0;
+            animation: modalPopIn 0.3s ease-out forwards;
+        }
+
+        @keyframes modalPopIn {
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .letter {
+            font-family: var(--font-caveat);
+            font-size: 1.5em;
+            line-height: 1.8;
+            text-align: left;
+            clip-path: inset(100% 0 0 0); /* Start folded */
+            animation: unfoldLetter 1.5s ease-out forwards;
+            animation-delay: 0.3s; /* Delay after modal pops */
+        }
+
+        @keyframes unfoldLetter {
+            to {
+                clip-path: inset(0 0 0 0);
+            }
+        }
+
+        /* Play Our Song Button */
+        #song-section {
+            background: linear-gradient(135deg, #FFB6C1, #FFDAB9); /* Light pink to peach */
+        }
+
+        #song-btn {
+            font-size: 2.5em;
+            padding: 20px 40px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(45deg, #FF69B4, #FF1493); /* Deep pink gradient */
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease-in-out;
+            animation: pulse 2s infinite;
+            font-family: var(--font-inter);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #song-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); }
+            50% { transform: scale(1.05); box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3); }
+            100% { transform: scale(1); box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); }
+        }
+
+        /* Floating Music Notes */
+        .music-note {
+            position: absolute;
+            font-size: 2em;
+            animation: floatUpNote 3s ease-out forwards;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        @keyframes floatUpNote {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(-100px) translateX(var(--note-offset)); opacity: 0; }
+        }
+
+
+        /* Footer */
+        footer {
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
+            font-family: var(--font-caveat);
+            font-size: 1.5em;
+            color: #555;
+            margin-top: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rainbow-divider {
+            height: 10px;
+            width: 100%;
+            background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+            background-size: 200% 100%; /* Make it wider to animate */
+            animation: rainbowCycle 5s linear infinite;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+        @keyframes rainbowCycle {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            section {
+                padding: 20px;
+                width: 95%;
+            }
+            #landing-page h1 {
+                font-size: 2.5em;
+                padding: 10px 20px;
+            }
+            .typewriter {
+                font-size: 1em;
+            }
+            #about-you h2, #reasons-game h2 {
+                font-size: 2em;
+            }
+            #about-you li {
+                font-size: 1.4em;
+            }
+            .chest {
+                font-size: 3em;
+                min-height: 100px;
+            }
+            #song-btn {
+                font-size: 1.8em;
+                padding: 15px 30px;
+            }
+            .easter-egg-trigger {
+                font-size: 1.5em;
+                width: 40px;
+                height: 40px;
+                top: 15px;
+                right: 15px;
+            }
+            .modal-content {
+                padding: 30px;
+            }
+            .letter {
+                font-size: 1.2em;
+            }
+            footer {
+                font-size: 1.2em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #landing-page h1 {
+                font-size: 2em;
+                padding: 8px 15px;
+            }
+            .typewriter {
+                font-size: 0.9em;
+            }
+            #about-you h2, #reasons-game h2 {
+                font-size: 1.8em;
+            }
+            #about-you li {
+                font-size: 1.2em;
+            }
+            .chest {
+                font-size: 2.5em;
+                min-height: 80px;
+            }
+            #song-btn {
+                font-size: 1.5em;
+                padding: 12px 25px;
+            }
+            .easter-egg-trigger {
+                font-size: 1.2em;
+                width: 35px;
+                height: 35px;
+            }
+            .modal-content {
+                padding: 20px;
+            }
+            .letter {
+                font-size: 1em;
+            }
+            footer {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Landing Page -->
+    <section id="landing-page">
+        <div class="heart-container"></div>
+        <h1 class="wiggle">Hi <span class="her-name">[Her Name]</span>! 💖</h1>
+        <p class="typewriter">This website is just for you...</p>
+    </section>
+
+    <!-- About You Section -->
+    <section id="about-you">
+        <h2>✨ Why You're Amazing ✨</h2>
+        <ul>
+            <li>You have the best laugh</li>
+            <li>You’re secretly a [inside joke] expert</li>
+            <li>You make my day brighter</li>
+            <li>You're incredibly kind</li>
+            <li>You inspire me every day</li>
+        </ul>
+    </section>
+
+    <!-- Interactive "Reasons I Like You" Game -->
+    <section id="reasons-game">
+        <h2>🎲 Reasons I Like You Game 🎲</h2>
+        <p>Click a chest to reveal a sweet message!</p>
+        <div class="chests-grid">
+            <div class="chest">🔒</div>
+            <div class="chest">🔒</div>
+            <div class="chest">🔒</div>
+            <div class="chest">🔒</div>
+            <div class="chest">🔒</div>
+            <div class="chest">🔒</div>
+        </div>
+    </section>
+
+    <!-- Love Letter (Hidden Easter Egg) -->
+    <section id="easter-egg-section">
+        <div class="easter-egg-trigger">?</div>
+        <h2>A Little Secret...</h2>
+        <p>There's a hidden message waiting for you!</p>
+
+        <!-- The Modal Structure -->
+        <div id="loveLetterModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <div class="letter">
+                    <p>Dear <span class="her-name">[Her Name]</span>,</p>
+                    <p>I made this because you’re...</p>
+                    <p>*checks notes* ...the cutest.</p>
+                    <p>Every moment with you is a treasure. You bring so much joy and sparkle into my life. Thank you for being you!</p>
+                    <p>With all my love,</p>
+                    <p>[Your Name]</p>
+                </div>
+            </div>
+        </div>
+        <audio id="crumpleSound" src="https://www.soundjay.com/misc/sounds/crumple-paper-01.mp3" preload="auto"></audio>
+    </section>
+
+    <!-- "Play Our Song" Button -->
+    <section id="song-section">
+        <h2>🎶 Our Song 🎶</h2>
+        <button id="song-btn">📻 Play Our Song</button>
+        <!-- Replace with your actual YouTube-to-MP3 link -->
+        <audio id="song" src="https://www.soundjay.com/button/sounds/button-3.mp3" preload="auto"></audio>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="rainbow-divider"></div>
+        <p>Made for you ❤️</p>
+    </footer>
+
+    <script>
+        // --- Global Variables and Setup ---
+        const herNameElements = document.querySelectorAll('.her-name');
+        const herName = "Cutie"; // Default name, user can change this
+        herNameElements.forEach(el => el.textContent = herName);
+
+        console.log("Pssst... you're awesome! 😉");
+
+        // --- 1. Landing Page Animations ---
+
+        // Typewriter Effect
+        const typewriterText = document.querySelector('.typewriter');
+        const originalText = typewriterText.textContent;
+        typewriterText.textContent = ''; // Clear text initially
+
+        let i = 0;
+        function typeWriter() {
+            if (i < originalText.length) {
+                typewriterText.textContent += originalText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 70); // Typing speed
+            } else {
+                // Remove blinking caret after typing
+                typewriterText.style.borderRight = 'none';
+            }
+        }
+        window.onload = typeWriter; // Start typing on page load
+
+        // Floating Hearts
+        const heartContainer = document.querySelector('.heart-container');
+        const heartEmojis = ['💖', '✨', '🌸', '🎀', '💫'];
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+            heart.style.left = `${Math.random() * 100}%`;
+            heart.style.animationDuration = `${Math.random() * 5 + 5}s`; // 5-10 seconds
+            heart.style.animationDelay = `${Math.random() * 0.5}s`; // Stagger start
+            heart.style.fontSize = `${Math.random() * 1 + 1.2}em`; // 1.2em to 2.2em
+            heartContainer.appendChild(heart);
+
+            // Remove heart after animation to prevent DOM bloat
+            heart.addEventListener('animationend', () => {
+                heart.remove();
+            });
+        }
+
+        // Generate hearts periodically
+        setInterval(createHeart, 500); // Create a new heart every 0.5 seconds
+
+        // --- 3. Interactive "Reasons I Like You" Game ---
+        const chests = document.querySelectorAll(".chest");
+        const messages = [
+            "You’re my favorite texter! 📱",
+            "Your smile brightens my day! 😊",
+            "You're incredibly thoughtful! 💌",
+            "You're super smart! 📚",
+            "You make the best [favorite food/drink]! 🍦", // Customize this!
+            "You have amazing taste in music! 🎶",
+            "You're always there for me! 🤗",
+            "You're simply the best! ⭐"
+        ];
+
+        chests.forEach(chest => {
+            chest.addEventListener("click", () => {
+                // Ensure a message is revealed only once per chest click
+                if (chest.textContent === '🔒') {
+                    const randomIndex = Math.floor(Math.random() * messages.length);
+                    chest.textContent = messages[randomIndex];
+
+                    // Trigger confetti burst
+                    confetti({
+                        particleCount: 100,
+                        spread: 70,
+                        origin: {
+                            x: (chest.getBoundingClientRect().left + chest.getBoundingClientRect().right) / 2 / window.innerWidth,
+                            y: (chest.getBoundingClientRect().top + chest.getBoundingClientRect().bottom) / 2 / window.innerHeight
+                        },
+                        colors: ['#FFD1DC', '#E6E6FA', '#FFFACD', '#FFC0CB', '#ADD8E6']
+                    });
+                }
+            });
+        });
+
+        // --- 4. Love Letter (Hidden Easter Egg) ---
+        const easterEggTrigger = document.querySelector('.easter-egg-trigger');
+        const loveLetterModal = document.getElementById('loveLetterModal');
+        const closeButton = document.querySelector('.close-button');
+        const crumpleSound = document.getElementById('crumpleSound');
+        const letterContent = document.querySelector('.letter');
+
+        easterEggTrigger.addEventListener('click', () => {
+            loveLetterModal.style.display = 'flex'; // Show the modal
+            crumpleSound.play(); // Play crumple sound
+            // Reset and re-apply animation for replayability
+            letterContent.style.animation = 'none';
+            void letterContent.offsetWidth; // Trigger reflow
+            letterContent.style.animation = 'unfoldLetter 1.5s ease-out forwards';
+            letterContent.style.animationDelay = '0.3s'; // Delay after modal pops
+        });
+
+        closeButton.addEventListener('click', () => {
+            loveLetterModal.style.display = 'none'; // Hide the modal
+        });
+
+        // Close modal if clicked outside of content
+        window.addEventListener('click', (event) => {
+            if (event.target == loveLetterModal) {
+                loveLetterModal.style.display = 'none';
+            }
+        });
+
+        // --- 5. "Play Our Song" Button ---
+        const songBtn = document.getElementById('song-btn');
+        const songAudio = document.getElementById('song');
+
+        songBtn.addEventListener('click', () => {
+            if (songAudio.paused) {
+                songAudio.play();
+                songBtn.textContent = '⏸️ Pause Song';
+                createMusicNotes(); // Start floating notes
+            } else {
+                songAudio.pause();
+                songBtn.textContent = '📻 Play Our Song';
+                stopMusicNotes(); // Stop floating notes
+            }
+        });
+
+        songAudio.addEventListener('ended', () => {
+            songBtn.textContent = '📻 Play Our Song';
+            stopMusicNotes();
+        });
+
+        // Floating Music Notes
+        let noteInterval;
+        const musicNoteEmojis = ['🎵', '🎶', '🎼', '🎧'];
+
+        function createMusicNotes() {
+            if (noteInterval) return; // Prevent multiple intervals
+            noteInterval = setInterval(() => {
+                const note = document.createElement('div');
+                note.classList.add('music-note');
+                note.textContent = musicNoteEmojis[Math.floor(Math.random() * musicNoteEmojis.length)];
+                note.style.left = `${songBtn.getBoundingClientRect().left + (songBtn.offsetWidth / 2) + (Math.random() * 50 - 25)}px`; // Around the button
+                note.style.bottom = `${window.innerHeight - songBtn.getBoundingClientRect().top}px`; // Start from button's bottom
+                note.style.setProperty('--note-offset', `${Math.random() * 100 - 50}px`); // Random horizontal drift
+                document.body.appendChild(note);
+
+                note.addEventListener('animationend', () => {
+                    note.remove();
+                });
+            }, 200); // Create a note every 200ms
+        }
+
+        function stopMusicNotes() {
+            clearInterval(noteInterval);
+            noteInterval = null;
+            document.querySelectorAll('.music-note').forEach(note => note.remove()); // Clear existing notes
+        }
+
+    </script>
+</body>
+</html>
