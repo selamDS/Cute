@@ -404,9 +404,9 @@
 
         /* Floating Music Notes */
         .music-note {
-            position: absolute;
+            position: fixed;
             font-size: 2em;
-            animation: floatUpNote 3s ease-out forwards;
+            animation: floatUpNote 4s ease-out forwards;
             pointer-events: none;
             opacity: 0;
         }
@@ -805,7 +805,7 @@ chests.forEach(chest => {
                 note.addEventListener('animationend', () => {
                     note.remove();
                 });
-            }, 80); // Create a note every 200ms
+            }, 350); // Create a note every 200ms
         }
 
         function stopMusicNotes() {
