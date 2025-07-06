@@ -86,7 +86,7 @@
             white-space: nowrap; /* Keeps the text on a single line */
             margin: 0 auto; /* Centers the text */
             letter-spacing: .15em; /* Adjust as needed */
-            animation: typing 8s steps(40, end),
+            animation: typing 8s steps(40, end) infinite,
                        blink-caret .75s step-end infinite;
             font-size: 1.2em;
             padding-top: 10px;
@@ -227,7 +227,7 @@
         }
 
         .chest:hover {
-            animation: shake 0.3s infinite;
+            animation: shake 0.5s;
         }
 
         @keyframes shake {
@@ -282,6 +282,7 @@
             justify-content: center;
         }
           .modal2 {
+            font-family: "Arial", sans-serif;
             display: none; /* Hidden by default */
             position: fixed; /* Stay in place */
             z-index: 100; /* Sit on top */
@@ -294,6 +295,7 @@
            /* display: flex;*/
             align-items: center;
             justify-content: center;
+            
         }
 
         .modal-content {
